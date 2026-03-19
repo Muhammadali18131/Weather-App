@@ -15,8 +15,10 @@ async function checkWeather(city) {
     const api_key = "d45ec4259a88a13b16f5aa62ff69ba77";
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${api_key}`;
 
-    const weather_data = await fetch(url).then(res => res.json());
-    const condition = weather_data.weather[0].main;
+    // const weather_data = await fetch(url).then(res => res.json());
+    // const condition = weather_data.weather[0].main;
+
+     const weather_data = await fetch(`${url}`).then(response => response.json());
     console.log(weather_data);
 
     if (weather_data.cod === 404 || weather_data.cod !== 200) {
@@ -25,7 +27,7 @@ async function checkWeather(city) {
         // console.log("error");
         return;
     }
-    // console.log(weather_data);
+    console.log(weather_data);
 
     locationNotFound.style.display = "none";
     weatherBody.style.display = "flex";
@@ -36,7 +38,7 @@ async function checkWeather(city) {
     windSpeed.innerHTML = `${weather_data.wind.speed}Km/H`;
 
     const imgSrc = "images";
-    switch(condition) {
+    switch(weather_data.weather[0].main) {
         case 'Clouds':
             weatherImg.src = `${imgSrc}/cloudy.png`;
             break;
