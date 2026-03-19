@@ -19,7 +19,7 @@ async function checkWeather(city) {
     const condition = weather_data.weather[0].main;
     console.log(weather_data);
 
-    if (weather_data.cod === '404') {
+    if (weather_data.cod === 404 || weather_data.cod !== 200) {
         locationNotFound.style.display = "flex";
         weatherBody.style.display = "none";
         // console.log("error");
@@ -35,7 +35,7 @@ async function checkWeather(city) {
     humidity.innerHTML = `${weather_data.main.humidity}%`;
     windSpeed.innerHTML = `${weather_data.wind.speed}Km/H`;
 
-    const imgSrc = "../images";
+    const imgSrc = "images";
     switch(condition) {
         case 'Clouds':
             weatherImg.src = `${imgSrc}/cloudy.png`;
